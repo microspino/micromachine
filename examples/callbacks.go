@@ -13,9 +13,11 @@ func main() {
 	fsm.When("ignore", map[string]string{"pending": "ignored"})
 	fsm.When("reset", map[string]string{"confirmed": "pending", "ignored": "pending"})
 
-	fsm.On("confirmed", func(e string, p ...string) { fmt.Println(fsm.State) })
-	fsm.On("ignored", func(e string, p ...string) { fmt.Println(fsm.State) })
-	fsm.On("pending", func(e string, p ...string) { fmt.Println(fsm.State) })
+	displayState := func(e string, p ...string) { fmt.Println(fsm.State) }
+
+	fsm.On("confirmed", displayState)
+	fsm.On("ignored", displayState)
+	fsm.On("pending", displayState)
 
 	// Will print:
 	// confirmed Transitioned... reset Transitioned... ignored Transitioned...
