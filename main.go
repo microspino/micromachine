@@ -11,6 +11,8 @@ type MicroMachine struct {
 	Callbacks      map[string][]Callback
 }
 
+type Transitions map[string]string
+
 type Callback func(event string, payload ...string)
 
 func NewMicroMachine(initialState string) *MicroMachine {
